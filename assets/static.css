@@ -1,0 +1,172 @@
+/* Static equivalents for application-only states. */
+[hidden] { display: none !important; }
+header { overflow: visible !important; }
+[data-dropdown-trigger][aria-expanded="true"] + * { visibility: visible; }
+.static-dropdown-open { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
+[role="radio"][aria-checked="true"] { background: var(--color-gold) !important; color: #1e1e1e !important; border-color: var(--color-gold) !important; }
+[role="radio"][aria-checked="false"] { background: var(--color-surface-100) !important; color: var(--color-ink-muted) !important; border-color: var(--color-surface-400) !important; }
+.static-dialog { position: fixed; margin: auto; width: min(92vw, 900px); max-height: 90dvh; overflow: auto; padding: 28px; border: 1px solid #45423d; border-radius: 16px; background: #1e1e1e; color: #f3eada; z-index: 150; }
+/* Same bg-surface-0/85 and backdrop-blur-sm as Modal/SearchOverlay. */
+.static-dialog::backdrop {
+  background: color-mix(in srgb, var(--color-surface-0, #06070b) 85%, transparent);
+  -webkit-backdrop-filter: blur(var(--blur-sm, 8px));
+  backdrop-filter: blur(var(--blur-sm, 8px));
+}
+.static-dialog a { display: block; padding: 12px; text-decoration: underline; }
+.static-dialog button { padding: 10px 18px; border: 1px solid #a49e94; border-radius: 6px; cursor: pointer; margin: 0 8px 16px 0; }
+.static-dialog img { width: 100%; max-height: 65vh; object-fit: contain; }
+.static-dialog input { width: 100%; padding: 12px; margin: 16px 0; border: 1px solid #a49e94; border-radius: 6px; }
+.static-status { padding: 20px 0; }
+body:has(dialog[open]) { overflow: hidden; }
+html { scroll-behavior: smooth; scroll-padding-top: 110px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* No-JS and reduced-motion visitors see the homepage immediately. */
+[data-intro-stage], [data-hero-text], [data-intro-chrome] { display: none; }
+.intro-playing [data-intro-stage], .intro-playing [data-hero-text] { display: block; }
+@media (min-width: 640px) { .intro-playing [data-intro-chrome] { display: flex; } }
+.intro-playing [data-hero-line] { animation: static-hero-enter 1s both; animation-delay: .35s; }
+.intro-playing [data-hero-line] + [data-hero-line] { animation-delay: .47s; }
+@keyframes static-hero-enter { from { opacity: 0; transform: translateY(34px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .intro-playing [data-intro-stage], .intro-playing [data-hero-text], .intro-playing [data-intro-chrome] { display: none; }
+}
+/* Header states mirror the React Header, Wordmark and HEADER_CHIP tokens. */
+header[data-condensed="true"] {
+  background-image: none;
+  background-color: color-mix(in srgb, var(--color-void-deep) 92%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+header[data-condensed="true"] .static-header-row { padding-block: 14px; }
+header[data-condensed="true"] .static-wordmark { color: white; }
+header[data-condensed="true"] nav[aria-label="Main"] > ul > li > a,
+header[data-condensed="true"] nav[aria-label="Main"] > ul > li > span > a,
+header[data-condensed="true"] [data-dropdown-trigger] { color: var(--color-ink); }
+header[data-condensed="true"] .static-header-chip {
+  background-color: color-mix(in srgb, var(--color-void-deep) 78%, transparent);
+  color: var(--color-ink);
+}
+header[data-condensed] .static-header-chip:hover {
+  background-color: var(--color-gold);
+  color: var(--color-ink-inverse);
+}
+.static-nav-indicator { transition: left var(--dur-hover) var(--ease-nav), width var(--dur-hover) var(--ease-nav), opacity var(--dur-hover) var(--ease-nav); }
+[data-dropdown-trigger][aria-expanded="true"] > svg { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .static-nav-indicator { transition: none; } }
+/* Explicit dialog positioning survives Tailwind's reset of native dialog styles. */
+.static-dialog { inset: 0; height: fit-content; max-height: calc(100dvh - 32px); padding: 0; overscroll-behavior: contain; }
+.static-dialog:not([open]) { display: none; }
+.static-dialog-bar { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; background: #1e1e1e; border-bottom: 1px solid #45423d; }
+.static-dialog-bar h2 { font-size: 1.35rem; font-weight: 700; }
+.static-dialog-bar button { margin: 0; flex-shrink: 0; }
+.static-dialog-content { padding: 20px 24px; }
+.static-dialog input { background: #262523; color: #f3eada; }
+.static-dialog :is(a,button,input):focus-visible { outline: 2px solid var(--color-gold); outline-offset: 3px; }
+.static-search-results a { border-bottom: 1px solid #45423d; text-decoration: none; border-radius: 4px; }
+.static-search-results a:hover, .static-search-results a:focus-visible { background: #33312e; }
+.static-gallery-controls { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.static-gallery-controls button { margin: 0; }
+.static-gallery-controls span { margin-left: auto; }
+.static-dialog img.static-gallery-image { display: block; width: 100%; height: auto; max-height: 60dvh; object-fit: contain; }
+.static-dialog figcaption { margin-top: 16px; font-weight: 600; }
+.static-dialog figure p { margin-top: 8px; color: #b8b2a8; }
+.partner-scroll-row { scroll-behavior: auto; touch-action: pan-x pan-y; }
+.partner-scroll-row:focus-visible { outline: 2px solid var(--color-gold); outline-offset: -3px; }
+@media (max-width: 640px) {
+  .static-dialog { width: calc(100vw - 24px); max-height: calc(100dvh - 24px); }
+  .static-dialog-bar, .static-dialog-content { padding: 16px; }
+}
+/* RouteFallback markup is extracted unchanged from src/routes.tsx. */
+[data-route-loader] { display: none; }
+.static-page-loading [data-route-loader] { display: block; }
+.static-page-loading #main { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  [data-route-loader] .animate-pulse { animation: none; }
+}
+/* SearchOverlay.tsx: max-w-2xl, 10/12vh offset, 52vh result list. */
+.static-dialog[data-kind="search"] {
+  inset: 10vh 0 auto; margin: 0 auto; width: calc(100% - 32px); max-width: 42rem;
+  max-height: 80vh; padding: 0; overflow: hidden; border-color: var(--color-surface-400);
+  border-radius: var(--radius-xl); background: var(--color-surface-100); box-shadow: var(--shadow-lg);
+}
+.static-dialog[data-kind="search"] input {
+  width: 0; min-width: 0; margin: 0; padding: 0; border: 0; border-radius: 0;
+  background: transparent; color: var(--color-ink); outline: none;
+}
+.static-dialog[data-kind="search"] button {
+  margin: 0; padding: 10px 12px; border: 0; border-radius: var(--radius-md);
+}
+.static-dialog[data-kind="search"] [role="listbox"] { max-height: min(52vh, calc(80dvh - 104px)); }
+.static-dialog[data-kind="search"] [role="option"][aria-selected="true"] { background: var(--color-surface-200); }
+@media (min-width: 640px) {
+  .static-dialog[data-kind="search"] { top: 12vh; width: calc(100% - 48px); max-height: 76vh; }
+}
+/* A bounded inner pane owns popup scrolling; the surrounding page stays locked. */
+html:has(.static-dialog[open]) { overflow: hidden; }
+.static-dialog[open] { display: flex; flex-direction: column; overflow: hidden; }
+.static-dialog > .static-dialog-bar,
+.static-dialog[data-kind="search"] > :first-child,
+.static-dialog[data-kind="search"] > :last-child { flex-shrink: 0; }
+.static-dialog .static-dialog-content,
+.static-dialog[data-kind="search"] [role="listbox"] {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scroll-behavior: auto;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+/* Match Lightbox/Modal: max-w-5xl, 90vh panel, full-width 1280×800 Media. */
+.static-dialog[data-kind="gallery"] {
+  width: calc(100% - 32px);
+  max-width: 64rem;
+  max-height: 90vh;
+  border-radius: var(--radius-xl);
+}
+.static-dialog[data-kind="gallery"] .static-dialog-content { padding: 0; }
+.static-dialog[data-kind="gallery"] img.static-gallery-image {
+  width: 100%; height: auto; max-height: none; object-fit: cover;
+}
+.static-dialog[data-kind="gallery"] figcaption { margin: 0; padding: 20px; font-weight: 400; }
+.static-dialog[data-kind="gallery"] .static-dialog-bar { padding: 16px; gap: 16px; }
+.static-dialog[data-kind="gallery"] .static-dialog-bar h2 { font-size: var(--text-h4); overflow-wrap: anywhere; }
+.static-dialog[data-kind="gallery"] .static-gallery-controls { flex-shrink: 0; margin: 0; gap: 4px; }
+.static-dialog[data-kind="gallery"] .static-gallery-controls span { margin: 0 8px 0 0; font-size: var(--text-meta); white-space: nowrap; }
+.static-dialog[data-kind="gallery"] .static-gallery-controls button {
+  display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px;
+  padding: 0; margin: 0; border: 0; border-radius: 50%; color: var(--color-ink-muted);
+}
+.static-dialog[data-kind="gallery"] .static-gallery-controls button:hover { background: var(--color-surface-300); color: var(--color-ink); }
+.static-dialog[data-kind="gallery"] .static-gallery-controls svg { width: 20px; height: 20px; fill: currentColor; }
+@media (min-width: 640px) {
+  .static-dialog[data-kind="gallery"] { width: calc(100% - 48px); }
+  .static-dialog[data-kind="gallery"] .static-dialog-bar { padding: 20px; }
+}
+@media (max-width: 480px) {
+  .static-dialog[data-kind="gallery"] .static-dialog-bar { flex-wrap: wrap; }
+  .static-dialog[data-kind="gallery"] .static-gallery-controls { margin-left: auto; }
+}
+/* GSAP owns the timeline transform; neutralize Tailwind's scale-y-0. */
+[data-line-fill] { scale: none; }
+/* Original MobileMenu markup, presented as a native modal right-hand drawer. */
+.static-mobile-menu {
+  position: fixed; inset: 0 0 0 auto; margin: 0;
+  width: 100%; max-width: 24rem; height: 100dvh; max-height: 100dvh;
+  padding: 0; border: 0; border-left: 1px solid var(--color-surface-400);
+  background: var(--color-surface-50); color: var(--color-ink);
+  box-shadow: var(--shadow-lg); overflow: hidden;
+}
+.static-mobile-menu[open] { display: flex; flex-direction: column; }
+.static-mobile-menu:not([open]) { display: none; }
+.static-mobile-menu::backdrop {
+  background: color-mix(in srgb, var(--color-surface-0) 80%, transparent);
+  -webkit-backdrop-filter: blur(var(--blur-sm, 8px));
+  backdrop-filter: blur(var(--blur-sm, 8px));
+  animation: static-menu-backdrop 250ms ease;
+}
+.static-mobile-menu > div { flex-shrink: 0; }
+.static-mobile-menu > nav { min-height: 0; overscroll-behavior: contain; touch-action: pan-y; }
+html:has(.static-mobile-menu[open]), body:has(.static-mobile-menu[open]) { overflow: hidden; }
+@keyframes static-menu-backdrop { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .static-mobile-menu::backdrop { animation: none; } }
